@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link href="{{ app.request.basePath }}/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="{{ app.request.basePath }}/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="{{ app.request.basePath }}/css/style.css" rel="stylesheet" type="text/css" />
+        <script src="{{ app.request.basePath }}/js/jquery.js"></script>
+        <script src="{{ app.request.basePath }}/js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="{{ app.request.basePath }}/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="{{ app.request.basePath }}/js/scrilex.js"></script>
+        <!--<script type="text/javascript" src="{{ app.request.basePath }}/js/bootstrap-dropdown.js"></script>
+        <script type="text/javascript" src="{{ app.request.basePath }}/js/bootstrap-twipsy.js"></script>
+        <script type="text/javascript" src="{{ app.request.basePath }}/js/bootstrap-modal.js"></script>
+        <script type="text/javascript" src="{{ app.request.basePath }}/js/bootstrap-tabs.js"></script>
+        <script type="text/javascript" src="{{ app.request.basePath }}/js/scrilex.js"></script>-->
+        <title>Scrilex</title>
+        
+        {% block header %}{% endblock %}
+    </head>
+    <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="{{ path('homepage') }}">Scrilex</a>
+                </div>
+            </div>
+        </div>
+            
+        <div class="container">
+            <div class="row">
+                <div class="offset3 span6">
+                    <form action="{{ path('login_check') }}" method="post" class="form-horizontal">
+                        <fieldset>
+                            <legend>Login</legend>
+                            
+                            <div class="control-group">
+                            {% if error %}
+                            <div class="alert alert-error">
+                            {{ error }}
+                            </div>
+                            {% endif %}
+                            </div>
+                            
+                            <div class="control-group">
+                                <label class="control-label" for="username">Login</label>
+                                <div class="controls">
+                                    <input type="text" class="input-xlarge" id="username" name="_username" value="{{ last_username }}" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="password">Password</label>
+                                <div class="controls">
+                                    <input type="password" class="input-xlarge" id="password" name="_password" />
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

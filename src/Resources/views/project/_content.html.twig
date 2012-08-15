@@ -1,0 +1,125 @@
+<div id="project">
+    <h2>{{ project.name }}</h2>
+    <a data-toggle="ajax-modal" class="btn" data-modal-title="Add Task" href="{{ path('project_task_new', {'project_id': project.id }) }}">Add Task</a>
+
+    <div class="row">
+        <div class="span10">
+            <div id="tasks">
+                <ul class="nav nav-tabs" id="tabs">
+                    <li class="pull-right"><a href="#task_archive">Archive</a></li>
+                    <li class="active pull-right"><a href="#task_board">Task board</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="task_board">
+                        <div class="row">
+                            <div class="span2">
+                                <h3>Backlog<span class="badge">{{ project.getColumnTasks(0)|length }}</span></h3>
+                                <ul id="col-0" class="sortable-list">
+                                    {% for task in project.getColumnTasks(0) %}
+                                        <li id="task_{{ task.id }}" class="well">
+                                            <div class="severity severity_{{ task.severity }}">&nbsp;</div>
+                                            {{ task.content }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="span2">
+                                <h3>Todo<span class="badge">{{ project.getColumnTasks(1)|length }}</span></h3>
+                                <ul id="col-1" class="sortable-list">
+                                    {% for task in project.getColumnTasks(1) %}
+                                        <li id="task_{{ task.id }}" class="well">
+                                            <div class="severity severity_{{ task.severity }}">&nbsp;</div>
+                                            {{ task.content }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="span2">
+                                <h3>Doing<span class="badge">{{ project.getColumnTasks(2)|length }}</span></h3>
+                                <ul id="col-2" class="sortable-list">
+                                    {% for task in project.getColumnTasks(2) %}
+                                        <li id="task_{{ task.id }}" class="well">
+                                            <div class="severity severity_{{ task.severity }}">&nbsp;</div>
+                                            {{ task.content }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="span2">
+                                <h3>QA<span class="badge">{{ project.getColumnTasks(3)|length }}</span></h3>
+                                <ul id="col-3" class="sortable-list">
+                                    {% for task in project.getColumnTasks(3) %}
+                                        <li id="task_{{ task.id }}" class="well">
+                                            <div class="severity severity_{{ task.severity }}">&nbsp;</div>
+                                            {{ task.content }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="span2">
+                                <h3>Done<span class="badge">{{ project.getColumnTasks(4)|length }}</span></h3>
+                                <ul id="col-4" class="sortable-list">
+                                    {% for task in project.getColumnTasks(4) %}
+                                        <li id="task_{{ task.id }}" class="well">
+                                            <div class="severity severity_{{ task.severity }}">&nbsp;</div>
+                                            {{ task.content }}
+                                            <i class="close icon-ok"></i>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="task_archive">
+                        <ul id="archive" class="">
+                            {% for task in project.getColumnTasks(-1)| %}
+                                <li id="task_{{ task.id }}" class="well">
+                                    {{ task.content }}
+                                    <i class="close icon-remove"></i>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <script>
+                    $(function () {
+                        $('#tabs a').on('click', function (e) {
+                            e.preventDefault();
+                            $(this).tab('show');
+                        });
+
+                    });
+                </script>
+            </div>
+        </div>
+        <div class="span2 ">
+            <div id="informations">
+                {% if task is defined %}
+                <div class="control-group">
+                    <label class="control-label">Severity</label>
+                    <div class="controls">
+                        <select id="severity" class="input-medium">
+                            <option{% if task.severity == 0 %} selected="selected"{% endif %} value="0">Not Set</option>
+                            <option{% if task.severity == 1 %} selected="selected"{% endif %} value="1">Critical</option>
+                            <option{% if task.severity == 2 %} selected="selected"{% endif %} value="2">Important</option>
+                            <option{% if task.severity == 3 %} selected="selected"{% endif %} value="3">Normal</option>
+                            <option{% if task.severity == 4 %} selected="selected"{% endif %} value="4">Minor</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Assigned To</label>
+                    <div class="controls">
+                        <select id="user" class="input-medium">
+                            <option value="1">Jérémy LEHERPEUR (jl)</option>
+                        </select>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

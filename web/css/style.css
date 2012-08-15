@@ -1,0 +1,77 @@
+body{
+    padding-top: 50px;
+}
+
+#tasks .badge{
+    float: right;
+}
+
+#tasks .sortable-list{
+    min-height: 30px;
+    list-style-type: none;
+    margin: 0;
+}
+
+#tasks .sortable-list .well{
+    padding: 2px;
+    padding-left: 10px;
+    padding-right: 18px;
+    margin-bottom: 5px;
+    min-height: 25px;
+    position: relative;
+}
+
+
+#tasks .sortable-list .well .close
+{
+    top: 3px;
+    right: 3px;
+    position: absolute;
+}
+
+#tasks .sortable-list .well .severity{
+    top: 0;
+    left: 0;
+    width: 7px;
+    position: absolute;
+    height: 100%;
+    -webkit-border-top-left-radius: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    -moz-border-radius-topleft: 4px;
+    -moz-border-radius-bottomleft: 4px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+#tasks .sortable-list .well .severity.severity_0
+{
+    background-color: #CCC;
+}
+
+#tasks .sortable-list .well .severity.severity_1
+{
+    background-color: #D46060;
+}
+
+#tasks .sortable-list .well .severity.severity_2
+{
+    background-color: #E8B019;
+}
+
+#tasks .sortable-list .well .severity.severity_3
+{
+    background-color: #60C5D4;
+}
+
+#tasks .sortable-list .well .severity.severity_4
+{
+    background-color: #8BB863;
+}
+
+#tasks > .row > .span2{
+    margin-left: 10px;
+}
+
+#tasks > .row > .span2:first-child{
+    margin-left: 30px;
+}

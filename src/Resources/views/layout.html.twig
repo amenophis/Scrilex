@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link href="{{ app.request.basePath }}/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="{{ app.request.basePath }}/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="{{ app.request.basePath }}/css/style.css" rel="stylesheet" type="text/css" />
+        <script src="{{ app.request.basePath }}/js/jquery.js"></script>
+        <script src="{{ app.request.basePath }}/js/jquery-ui.min.js"></script>
+        <script src="{{ app.request.basePath }}/js/bootstrap.min.js"></script>
+        <script src="{{ app.request.basePath }}/js/scrilex.js"></script>
+        <title>Scrilex</title>
+        <script>
+            $(document).ready(function(){
+                $('[data-toggle="ajax-modal"]').on('click', function(e) {
+                    e.preventDefault();
+                    var $button = $(this);
+                    var href = $button.attr('href');
+
+                    $button.button('loading');
+
+                    $.get(href, function(data) {
+                        $modal = $('<div class="modal"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">×</button><h3>'+$button.data('modal-title')+'</h3></div><div class="modal-body">' + data + '</div><div class="modal-footer"><a href="#" class="btn" data-dismiss="modal">Close</a><a href="#" class="btn btn-primary">Save changes</a></div></div>').modal();
+
+                        $modal.find('.btn-primary').on('click', function(){
+                            $saveBtn = $(this);
+                            $saveBtn.button('loading');
+                            $modal.find('.modal-body').load(href, $modal.find('form').serializeArray(), function(data){
+                                if(data == ""){
+                                    //sortableUpdate();
+                                    $modal.modal('hide');
+                                }else{
+                                    $saveBtn.button('reset');
+                                }
+                            });
+                        });
+                    }).success(function() {
+                        $('input:text:visible:first').focus();
+                        $button.button('reset');
+                    });
+                });
+            });
+            
+            {{ javascript_routes|raw }}
+        </script>     
+        {% block header %}{% endblock %}
+    </head>
+    <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="{{ path('homepage') }}">Scrilex</a>
+                    <div class="nav-collapse">
+                        <ul class="nav">
+                            <li class="dropdown" id="menu1">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+                                    Projects
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    {% for project in projects %}
+                                        <li><a href="{{ path('project_show', {'id': project.id }) }}">{{ project.name }}</a></li>
+                                    {% endfor %}
+                                    {% if is_granted('ROLE_MANAGER') %}
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="{{ path('project_new') }}">
+                                                <i class="icon-plus"></i>
+                                                &nbsp;Add
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                        </ul>
+                            
+                        <ul class="nav pull-right">
+                            <li><a href="{{ path('logout') }}">Logout</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+            
+        <div class="container">
+            {% if migration_infos is defined %}
+                {% include "_migration_infos.html.twig" %}
+            {% endif %}
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>

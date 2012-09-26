@@ -12,39 +12,76 @@ class User implements UserInterface, \Serializable {
     /**
      * @Id
      * @Column(type="integer")
-     * @generatedValue(strategy="IDENTITY")
+     * @GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
     
     /**
      * @Column(type="string", length=32, unique=true, nullable=false)
      */
-    private $username;
+    protected $username;
     
     /**
      * @Column(type="string", length=255, nullable=false)
      */
-    private $password;
+    protected $password;
+    
+    /**
+     * Column(type="string", length="255")
+     *
+     * @var string salt
+     */
+    protected $salt;
     
     /**
      * @Column(type="string", nullable=false)
      */
-    private $firstname;
+    protected $firstname;
     
     /**
      * @Column(type="string", nullable=false)
      */
-    private $lastname;
+    protected $lastname;
     
     /**
-     * @Column(type="boolean")
+     * @ManyToMany(targetEntity="Role")
+     * @JoinTable(name="_user_role",
+     *     joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")}
+     * )
+     *
+     * @var ArrayCollection $userRoles
      */
-    private $is_manager;
+    protected $userRoles;
+    
+    
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->userRoles = new ArrayCollection();
+        $this->updatedAt = new \DateTime();
+    }    
     
     /**
-     * @Column(type="string", nullable=false)
+     * Gets the user roles.
+     *
+     * @return ArrayCollection A Doctrine ArrayCollection
      */
-    private $roles;
+    public function getUserRoles()
+    {
+        return $this->userRoles;
+    }
+ 
+    /**
+     * Compares this user to another to determine if they are the same.
+     * 
+     * @param UserInterface $user The user
+     * @return boolean True if equal, false othwerwise.
+     */
+    public function equals(UserInterface $user)
+    {
+        return md5($this->getUsername()) == md5($user->getUsername());
+    }
     
     public function getId()
     {

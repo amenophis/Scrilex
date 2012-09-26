@@ -4,6 +4,7 @@ namespace Scrilex\Entity;
 
 /**
  * @Entity(repositoryClass="Scrilex\Repository\Project")
+ * @Table(name="project")
  */
 class Project
 {

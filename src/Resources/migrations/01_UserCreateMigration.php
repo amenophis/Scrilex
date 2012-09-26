@@ -9,6 +9,13 @@ class UserCreateMigration extends AbstractMigration
 {
     public function schemaUp(Schema $schema)
     {
+        //Role
+        $roleTable = $schema->createTable('role');
+        $roleTable->addColumn('id', 'integer', array(
+            'autoincrement' => true
+        ));
+        $roleTable->addColumn('name', 'string', array('length' => 255));
+        
         //User
         $userTable = $schema->createTable('user');
         $userTable->addColumn('id', 'integer', array(

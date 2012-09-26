@@ -10,7 +10,7 @@ use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 
 use Knp\Provider\RepositoryServiceProvider;
-use Knp\Provider\MigrationServiceProvider;
+//use Knp\Provider\MigrationServiceProvider;
 
 $app->register(new DoctrineServiceProvider(), array(
     'db.options' => array(
@@ -50,10 +50,10 @@ if(!$app['is_cli']){
         'translator.messages' => array(),
     ));
     
-    $app['migration.register_before_handler'] = true;
-    $app->register(new \Knp\Provider\MigrationServiceProvider(), array(
-        'migration.path' => __DIR__.'/Resources/migrations'
-    ));
+    //$app['migration.register_before_handler'] = true;
+    //$app->register(new \Knp\Provider\MigrationServiceProvider(), array(
+    //    'migration.path' => __DIR__.'/Resources/migrations'
+    //));
     
     $app['security.firewalls'] = array(
         'login' => array(

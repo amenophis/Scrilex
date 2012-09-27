@@ -6,6 +6,7 @@ use \Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Entity(repositoryClass="Scrilex\Entity\UserRepository")
+ * @Table(name="user")
  */
 class User implements UserInterface, \Serializable {
 

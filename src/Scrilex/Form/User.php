@@ -29,21 +29,8 @@ class User extends AbstractType
 
     public function getDefaultOptions(array $options)
     {
-        $collectionConstraint = new Assert\Collection(array(
-            'allowExtraFields' => true,
-            'fields' => array(
-                'username' => array(
-                    new Assert\NotBlank(),
-                    new Assert\MinLength(array('limit' => 5)),
-                    new Assert\MaxLength(array('limit' => 20))
-                ),
-                'firstname' => new Assert\NotBlank(),
-                'lastname' => new Assert\NotBlank(),
-                'password' => new Assert\NotBlank(),
-                'roles' => new Assert\NotBlank()
-            )
+        $resolver->setDefaults(array(
+            'data_class' => 'Scrilex\Entity\User'
         ));
-
-        return array('validation_constraint' => $collectionConstraint);
     }
 }

@@ -24,11 +24,10 @@ class Project implements ControllerProviderInterface {
 
                 if ($form->isValid()) {
                     $project = $form->getData();
-                    if($app['projects']->insert($project)){
-                        $id = $app['projects']->lastInsertId();
-                        $url = $app['url_generator']->generate('project_show', array('id' => $id));
-                        return $app->redirect($url);
-                    }
+                    $app['db.orm.em']->persist($project);
+                    $app['db.orm.em']->flush();
+                    $url = $app['url_generator']->generate('project_show', array('id' => $project->getId()));
+                    return $app->redirect($url);
                 }
             }
             return $app['twig']->render('project/new.html.twig', array(
@@ -45,12 +44,13 @@ class Project implements ControllerProviderInterface {
 
                 if ($form->isValid()) {
                     $task = $form->getData();
-                    $task['project_id'] = $project_id;
-                    if($app['tasks']->insert($task)){
-                        $id = $app['tasks']->lastInsertId();
-                        $url = $app['url_generator']->generate('project_show', array('id' => $id));
-                        return "";
-                    }
+                    
+                    $project = $app['db.orm.em']->getRepository('Scrilex\Entity\Project')->find($project_id);
+                    $task->setProject($project);
+                    $app['db.orm.em']->persist($project);
+                    $app['db.orm.em']->flush();
+                    $url = $app['url_generator']->generate('project_show', array('id' => $id));
+                    return "";
                 }
             }
             return $app['twig']->render('project/new_task.html.twig', array(

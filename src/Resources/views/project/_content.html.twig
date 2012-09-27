@@ -14,9 +14,9 @@
                     <div class="tab-pane active" id="task_board">
                         <div class="row">
                             <div class="span2">
-                                <h3>Backlog<span class="badge">{{ project.getColumnTasks(0)|length }}</span></h3>
+                                <h3>Backlog<span class="badge">{{ project.getTasksByColumn(0)|length }}</span></h3>
                                 <ul id="col-0" class="sortable-list">
-                                    {% for task in project.getColumnTasks(0) %}
+                                    {% for task in project.getTasksByColumn(0) %}
                                         <li id="task_{{ task.id }}" class="well">
                                             <div class="severity severity_{{ task.severity }}">&nbsp;</div>
                                             {{ task.content }}
@@ -25,9 +25,9 @@
                                 </ul>
                             </div>
                             <div class="span2">
-                                <h3>Todo<span class="badge">{{ project.getColumnTasks(1)|length }}</span></h3>
+                                <h3>Todo<span class="badge">{{ project.getTasksByColumn(1)|length }}</span></h3>
                                 <ul id="col-1" class="sortable-list">
-                                    {% for task in project.getColumnTasks(1) %}
+                                    {% for task in project.getTasksByColumn(1) %}
                                         <li id="task_{{ task.id }}" class="well">
                                             <div class="severity severity_{{ task.severity }}">&nbsp;</div>
                                             {{ task.content }}
@@ -36,9 +36,9 @@
                                 </ul>
                             </div>
                             <div class="span2">
-                                <h3>Doing<span class="badge">{{ project.getColumnTasks(2)|length }}</span></h3>
+                                <h3>Doing<span class="badge">{{ project.getTasksByColumn(2)|length }}</span></h3>
                                 <ul id="col-2" class="sortable-list">
-                                    {% for task in project.getColumnTasks(2) %}
+                                    {% for task in project.getTasksByColumn(2) %}
                                         <li id="task_{{ task.id }}" class="well">
                                             <div class="severity severity_{{ task.severity }}">&nbsp;</div>
                                             {{ task.content }}
@@ -47,9 +47,9 @@
                                 </ul>
                             </div>
                             <div class="span2">
-                                <h3>QA<span class="badge">{{ project.getColumnTasks(3)|length }}</span></h3>
+                                <h3>QA<span class="badge">{{ project.getTasksByColumn(3)|length }}</span></h3>
                                 <ul id="col-3" class="sortable-list">
-                                    {% for task in project.getColumnTasks(3) %}
+                                    {% for task in project.getTasksByColumn(3) %}
                                         <li id="task_{{ task.id }}" class="well">
                                             <div class="severity severity_{{ task.severity }}">&nbsp;</div>
                                             {{ task.content }}
@@ -58,9 +58,9 @@
                                 </ul>
                             </div>
                             <div class="span2">
-                                <h3>Done<span class="badge">{{ project.getColumnTasks(4)|length }}</span></h3>
+                                <h3>Done<span class="badge">{{ project.getTasksByColumn(4)|length }}</span></h3>
                                 <ul id="col-4" class="sortable-list">
-                                    {% for task in project.getColumnTasks(4) %}
+                                    {% for task in project.getTasksByColumn(4) %}
                                         <li id="task_{{ task.id }}" class="well">
                                             <div class="severity severity_{{ task.severity }}">&nbsp;</div>
                                             {{ task.content }}
@@ -73,7 +73,7 @@
                     </div>
                     <div class="tab-pane" id="task_archive">
                         <ul id="archive" class="">
-                            {% for task in project.getColumnTasks(-1)| %}
+                            {% for task in project.getTasksByColumn(-1) %}
                                 <li id="task_{{ task.id }}" class="well">
                                     {{ task.content }}
                                     <i class="close icon-remove"></i>

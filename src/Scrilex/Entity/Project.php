@@ -20,6 +20,44 @@ class Project
      */
     protected $name;
     
+    
+    /**
+     * @OneToMany(targetEntity="Scrilex\Entity\Task", mappedBy="project")
+     */
+    protected $tasks;
+    
+    /**
+     * @OneToMany(targetEntity="Scrilex\Entity\Task", mappedBy="project")
+     */
+    protected $tasks_1;
+    
+    /**
+     * @OneToMany(targetEntity="Scrilex\Entity\Task", mappedBy="project")
+     */
+    protected $tasks_2;
+    
+    /**
+     * @OneToMany(targetEntity="Scrilex\Entity\Task", mappedBy="project")
+     */
+    protected $tasks_3;
+    
+    /**
+     * @OneToMany(targetEntity="Scrilex\Entity\Task", mappedBy="project")
+     */
+    protected $tasks_4;
+    
+    /**
+     * @OneToMany(targetEntity="Scrilex\Entity\Task", mappedBy="project")
+     */
+    protected $tasks_archive;
+    
+    
+    
+    public function __construct()
+    {
+        $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     public function getId()
     {
         return $this->id;
@@ -34,5 +72,15 @@ class Project
     {
         $this->name = $name;
         return $this;
+    }
+    
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
+    
+    public function getTasksByColumn($column)
+    {
+        return array();
     }
 }

@@ -24,13 +24,7 @@ class TaskAdd extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'validation_constraint' => function(Options $options, $value) {
-                return new Assert\Collection(array(
-                    'fields' => array(
-                        'content' => new Assert\NotBlank()
-                    )
-                ));
-            }
+            'data_class' => 'Scrilex\Entity\Task'
         ));
     }
 }

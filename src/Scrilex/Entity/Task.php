@@ -4,6 +4,7 @@ namespace Scrilex\Entity;
 
 /**
  * @Entity(repositoryClass="Scrilex\Entity\TaskRepository")
+ * @Table(name="task")
  */
 class Task {
     

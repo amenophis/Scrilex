@@ -1,10 +1,10 @@
 <?php
 
-namespace Scrilex\Repository;
+namespace Scrilex\Entity;
  
 use Doctrine\ORM\EntityRepository;
 
-class Task extends EntityRepository
+class TaskRepository extends EntityRepository
 {
     
 }

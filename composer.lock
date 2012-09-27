@@ -1,5 +1,5 @@
 {
-    "hash": "dec2571972944edeba862f9833b9bca7",
+    "hash": "de757418de0499eeaa829eb2f95cb69f",
     "packages": [
         {
             "name": "amenophis/silex-doctrineorm",
@@ -352,12 +352,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Silex.git",
-                "reference": "9b63007bbdf6a5f68ab402c76fbaf9df56c67342"
+                "reference": "0d02614d88bf6ec0410e7c9c0df556d8c3ef47ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Silex/zipball/9b63007bbdf6a5f68ab402c76fbaf9df56c67342",
-                "reference": "9b63007bbdf6a5f68ab402c76fbaf9df56c67342",
+                "url": "https://github.com/fabpot/Silex/zipball/0d02614d88bf6ec0410e7c9c0df556d8c3ef47ca",
+                "reference": "0d02614d88bf6ec0410e7c9c0df556d8c3ef47ca",
                 "shasum": ""
             },
             "require": {
@@ -391,11 +391,11 @@
                 "symfony/css-selector": "2.1.*",
                 "symfony/dom-crawler": "2.1.*"
             },
-            "time": "1348229548",
+            "time": "1348695490",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "installation-source": "source",

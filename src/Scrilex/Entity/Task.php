@@ -3,7 +3,7 @@
 namespace Scrilex\Entity;
 
 /**
- * @Entity(repositoryClass="Scrilex\Repository\Task")
+ * @Entity(repositoryClass="Scrilex\Entity\TaskRepository")
  */
 class Task {
     
@@ -27,7 +27,7 @@ class Task {
     protected $user;
     
     /**
-     * @Column(type="integer"
+     * @Column(type="integer")
      */
     protected $pos;
     

@@ -5,7 +5,7 @@ namespace Scrilex\Entity;
 use \Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @Entity(repositoryClass="Scrilex\Repository\User")
+ * @Entity(repositoryClass="Scrilex\Entity\UserRepository")
  */
 class User implements UserInterface, \Serializable {
 
@@ -42,34 +42,26 @@ class User implements UserInterface, \Serializable {
      * @Column(type="string", nullable=false)
      */
     protected $lastname;
-    
+        
     /**
-     * @ManyToMany(targetEntity="Role")
-     * @JoinTable(name="_user_role",
-     *     joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")}
-     * )
-     *
-     * @var ArrayCollection $userRoles
+     * @Column(type="array")
+     * @var type 
      */
-    protected $userRoles;
-    
+    protected $roles;
     
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
-        $this->userRoles = new ArrayCollection();
-        $this->updatedAt = new \DateTime();
+        $this->roles = array();
     }    
     
     /**
      * Gets the user roles.
      *
-     * @return ArrayCollection A Doctrine ArrayCollection
+     * @return array
      */
-    public function getUserRoles()
+    public function getRoles()
     {
-        return $this->userRoles;
+        return $this->roles;
     }
  
     /**
@@ -113,11 +105,6 @@ class User implements UserInterface, \Serializable {
         return $this->password;
     }
     
-    public function getRoles()
-    {
-        return explode(',', $this->roles);
-    }
-    
     public function getSalt()
     {
         return null;
@@ -134,7 +121,7 @@ class User implements UserInterface, \Serializable {
             'password'  => $this->password,
             'lastname'  => $this->lastname,
             'firstname'  => $this->firstname,
-            'is_manager'  => $this->is_manager ? 1 : 0,
+            //'is_manager'  => $this->is_manager ? 1 : 0,
             'roles'     => $this->roles
         ));
     }
@@ -145,7 +132,7 @@ class User implements UserInterface, \Serializable {
         $this->password = $datas['password'];
         $this->lastname = $datas['lastname'];
         $this->firstname = $datas['firstname'];
-        $this->is_manager = $datas['is_manager'] == 1;
+        //$this->is_manager = $datas['is_manager'] == 1;
         $this->roles = $datas['roles'];
     }
 }

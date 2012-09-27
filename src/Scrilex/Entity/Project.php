@@ -3,7 +3,7 @@
 namespace Scrilex\Entity;
 
 /**
- * @Entity(repositoryClass="Scrilex\Repository\Project")
+ * @Entity(repositoryClass="Scrilex\Entity\ProjectRepository")
  * @Table(name="project")
  */
 class Project

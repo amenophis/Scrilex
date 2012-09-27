@@ -1,9 +1,9 @@
 <?php
 
-namespace Scrilex\Repository;
+namespace Scrilex\Entity;
  
 use Doctrine\ORM\EntityRepository;
 
-class Project extends EntityRepository
+class ProjectRepository extends EntityRepository
 {
 }

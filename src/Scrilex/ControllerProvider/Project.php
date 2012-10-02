@@ -47,9 +47,11 @@ class Project implements ControllerProviderInterface {
                     
                     $project = $app['db.orm.em']->getRepository('Scrilex\Entity\Project')->find($project_id);
                     $task->setProject($project);
-                    $app['db.orm.em']->persist($project);
+                    $task->setPos(1000);
+                    $task->setCol(0);
+                    $task->setSeverity(0);
+                    $app['db.orm.em']->persist($task);
                     $app['db.orm.em']->flush();
-                    $url = $app['url_generator']->generate('project_show', array('id' => $id));
                     return "";
                 }
             }

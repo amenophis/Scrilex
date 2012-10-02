@@ -23,64 +23,28 @@ class Project
     
     /**
      * @OneToMany(targetEntity="Scrilex\Entity\Task", mappedBy="project")
+     * @OrderBy({"pos" = "ASC"})
      */
     protected $tasks;
-    
-    /**
-     * @OneToMany(targetEntity="Scrilex\Entity\Task", mappedBy="project")
-     */
-    protected $tasks_1;
-    
-    /**
-     * @OneToMany(targetEntity="Scrilex\Entity\Task", mappedBy="project")
-     */
-    protected $tasks_2;
-    
-    /**
-     * @OneToMany(targetEntity="Scrilex\Entity\Task", mappedBy="project")
-     */
-    protected $tasks_3;
-    
-    /**
-     * @OneToMany(targetEntity="Scrilex\Entity\Task", mappedBy="project")
-     */
-    protected $tasks_4;
-    
-    /**
-     * @OneToMany(targetEntity="Scrilex\Entity\Task", mappedBy="project")
-     */
-    protected $tasks_archive;
-    
-    
     
     public function __construct()
     {
         $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
-    public function getId()
-    {
-        return $this->id;
-    }
+    public function getId() { return $this->id; }
+    public function getName() { return $this->name; }
+    public function getTasks() { return $this->tasks; }
     
-    public function getName()
-    {
-        return $this->name;
-    }
+    public function setName($name) { $this->name = $name; return $this; }
+    public function addTask(Task $task) { $this->tasks->add($task); return $this; }
     
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-    
-    public function getTasks()
-    {
-        return $this->tasks;
-    }
-    
-    public function getTasksByColumn($column)
-    {
-        return array();
+    public function getTasksByColumn($column) {
+        $tasks = array();
+        foreach($this->tasks as $task)
+        {
+            if($task->getCol() == $column) $tasks[] = $task;
+        }
+        return $tasks;
     }
 }

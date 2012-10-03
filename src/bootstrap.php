@@ -73,9 +73,9 @@ if(!$app['is_cli']){
         array('^.*$', 'ROLE_USER')
     );        
 
-    $app['security.role_hierarchy'] = array(
-        'ROLE_ADMIN' => array('ROLE_MANAGER'),
-        'ROLE_MANAGER' => array('ROLE_USER'),
-        'ROLE_USER' => array()
-    );
+    //$app['security.role_hierarchy'] = array(
+    //    'ROLE_ADMIN' => array('ROLE_MANAGER'),
+    //    'ROLE_MANAGER' => array('ROLE_USER'),
+    //    'ROLE_USER' => array()
+    //);
 }

@@ -86,45 +86,21 @@ class User implements UserInterface, \Serializable {
         return md5($this->getUsername()) == md5($user->getUsername());
     }
     
-    public function getId()
-    {
-        return $this->id;
-    }
+    public function getId() { return $this->id; }
+    public function getUsername() { return $this->username; }
+    public function getFirstname() { return $this->firstname; }
+    public function getLastname() { return $this->lastname; }
+    public function getPassword() { return $this->password; }
+    public function getSalt() { return null; }
     
-    public function getUsername()
-    {
-        return $this->username;
-    }
+    public function setId($id) { $this->id = $id; return $this; }
+    public function setUsername($username) { $this->username = $username; return $this; }
+    public function setFirstname($firstname) { $this->firstname = $firstname; return $this; }
+    public function setLastname($lastname) { $this->lastname = $lastname; return $this; }
+    public function setPassword($password) { $this->password = $password; return $this; }
+    public function setSalt($salt) { return null; }
     
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
-    
-    public function getIsManager()
-    {
-        return $this->is_manager;
-    }
-    
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-    
-    public function getPassword()
-    {
-        return $this->password;
-    }
-    
-    public function getSalt()
-    {
-        return null;
-    }
-    
-    public function eraseCredentials()
-    {
-        return true;
-    }
+    public function eraseCredentials() { return true; }
     
     public function serialize() {
         return serialize(array(
@@ -132,7 +108,6 @@ class User implements UserInterface, \Serializable {
             'password'  => $this->password,
             'lastname'  => $this->lastname,
             'firstname'  => $this->firstname,
-            //'is_manager'  => $this->is_manager ? 1 : 0,
             'roles'     => $this->roles
         ));
     }
@@ -143,7 +118,6 @@ class User implements UserInterface, \Serializable {
         $this->password = $datas['password'];
         $this->lastname = $datas['lastname'];
         $this->firstname = $datas['firstname'];
-        //$this->is_manager = $datas['is_manager'] == 1;
         $this->roles = $datas['roles'];
     }
 }

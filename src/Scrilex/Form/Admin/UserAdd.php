@@ -1,29 +1,26 @@
 <?php
-
-namespace Scrilex\Form;
+namespace Scrilex\Form\Admin;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class User extends AbstractType
+class UserAdd extends AbstractType
 {
-    public function getName()
-    {
+    public function getName(){
         return 'user';
     }
-
+    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('username', 'text');
         $builder->add('firstname', 'text');
         $builder->add('lastname', 'text');
-        $builder->add('password', 'text');
-        $builder->add('roles', 'text');
-        $builder->add('is_manager', 'checkbox');
+        //$builder->add('password_new', 'password', array('property_path' => false));
+        //$builder->add('password_confirm', 'password', array('property_path' => false));
+        //$builder->add('password2', 'password');
+        //$builder->add('roles', 'text');
+        
         return $builder;
     }
 

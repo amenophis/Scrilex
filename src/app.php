@@ -19,6 +19,8 @@ if(!$app['is_cli'])
     $app->mount('/', new \Scrilex\ControllerProvider\Main());
     $app->mount('/project', new \Scrilex\ControllerProvider\Project());
     $app->mount('/user', new \Scrilex\ControllerProvider\User());
+    
+    $app->mount('/admin/user', new \Scrilex\ControllerProvider\AdminUser());
 
 
     $app->before(function() use ($app) {

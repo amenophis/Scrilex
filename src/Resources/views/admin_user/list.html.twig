@@ -1,0 +1,48 @@
+{% extends 'layout.html.twig' %}
+
+{% block content_title %}Users{% endblock %}
+
+{% block content %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th width="70px">Manager</th>
+                <th width="70px">Admin</th>
+                <th width="16px"></th>
+                <th width="16px"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td style="text-align: center;">
+                    {% if 'ROLE_MANAGER' in user.roles %}<i class="icon-thumbs-up"></i>{% endif %}
+                </td>
+                <td style="text-align: center;">
+                    {% if 'ROLE_ADMIN' in user.roles %}<i class="icon-thumbs-up"></i>{% endif %}
+                </td>
+                <td style="text-align: center;">
+                    <a data-toggle="ajax-modal" data-modal-title="Edit {{ user.firstname }} {{ user.lastname }} ({{ user.username }})" href="{{ path('admin_user_edit', { 'id': user.id }) }}"><i class="icon-edit"></i></a>
+                </td>
+                 <td style="text-align: center;">
+                    <a onclick="return confirm('Are you sure ?')" href="{{ path('admin_user_delete', { 'id': user.id }) }}"><i class="icon-remove"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+    <div class="form-actions">
+        <div class="pull-left"></div>
+        <div class="pull-right">
+            <a data-toggle="ajax-modal" class="btn btn-primary" data-modal-title="Add User" href="{{ path('admin_user_new') }}">Add User</a>
+        </div>
+    </div>
+{% endblock %}

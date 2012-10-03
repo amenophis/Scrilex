@@ -4,20 +4,17 @@
 Scrilex is built on the top of:
  - Silex (http://silex.sensiolabs.org)
  - Bootstrap (http://twitter.github.com/bootstrap/)
- - knplabs/repository-service-provider (https://github.com/KnpLabs/RepositoryServiceProvider)
- - knplabs/migration-service-provider (https://github.com/KnpLabs/MigrationServiceProvider)
+ - amenophis/silex-doctrineorm (https://github.com/amenophis/silex-doctrineorm)
 
 ## Installation
-    ```php
-    php composer.phar install
+    php composer.phar update
 
 ##Configuration
 You need to configure database credentials in src/bootstrap.php file:
-    ```php
+
     $app->register(new DoctrineServiceProvider(), array(
         'db.options' => array(
             'driver'    => 'pdo_mysql',
-            'host'      => 'localhost',
             'dbname'    => 'scrilex',
             'user'      => 'root',
             'password'  => 'root',
@@ -25,3 +22,10 @@ You need to configure database credentials in src/bootstrap.php file:
     ));
 
 You will soon set up access to the database in a yml file
+
+##TODO
+ - Date d'échéance
+ - Masque de couleur Sévérité
+ - Personnaliser le nombre de colonnes du projet
+ - Tous les champs à la création de la tache
+ - Historique des actions

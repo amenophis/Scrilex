@@ -10,8 +10,8 @@ class Project
 {
     /**
      * @Id
+     * @GeneratedValue(strategy="AUTO")
      * @Column(type="integer")
-     * @generatedValue(strategy="IDENTITY")
      */
     protected $id;
     
@@ -19,10 +19,9 @@ class Project
      * @Column(type="string", length=32, unique=true, nullable=false)
      */
     protected $name;
-    
-    
+
     /**
-     * @OneToMany(targetEntity="Scrilex\Entity\Task", mappedBy="project")
+     * @OneToMany(targetEntity="Task", mappedBy="project")
      * @OrderBy({"pos" = "ASC"})
      */
     protected $tasks;

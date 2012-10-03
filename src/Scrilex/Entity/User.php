@@ -4,6 +4,9 @@ namespace Scrilex\Entity;
 
 use \Symfony\Component\Security\Core\User\UserInterface;
 
+// foo : 5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg==
+// array('ROLE_ADMIN') : a:1:{i:0;s:10:"ROLE_ADMIN";}
+
 /**
  * @Entity(repositoryClass="Scrilex\Entity\UserRepository")
  * @Table(name="user")
@@ -12,8 +15,8 @@ class User implements UserInterface, \Serializable {
 
     /**
      * @Id
+     * @GeneratedValue(strategy="AUTO")
      * @Column(type="integer")
-     * @GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
     
@@ -50,9 +53,16 @@ class User implements UserInterface, \Serializable {
      */
     protected $roles;
     
+    /**
+     * @OneToMany(targetEntity="Task", mappedBy="user")
+     * @OrderBy({"pos" = "ASC"})
+     */
+    protected $tasks;
+    
     public function __construct()
     {
         $this->roles = array();
+        $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
     }    
     
     /**

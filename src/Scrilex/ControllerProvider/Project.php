@@ -72,32 +72,32 @@ class Project implements ControllerProviderInterface {
         ->bind('project_show');
         
         $controllers->post('/updateTasksPositions/{id}', function ($id) use ($app) {
-            $project  = $app['projects']->find($id);
+            $project  = $app['db.orm.em']->getRepository('Scrilex\Entity\Project')->find($id);
             
             $results = $app['request']->get('results');
                     
-            $app['db']->beginTransaction();
-            try {
-                for($i = 0; $i < count($results); $i++)
-                {
+            for($i = 0; $i < count($results); $i++)
+            {
+                if($results[$i]){
                     $task_ids = explode('|', $results[$i]);
                     for($j = 0; $j < count($task_ids); $j++)
                     {
-                        $task_id = $task_ids[$j];
-                        $app['tasks']->update(array('col' => $i, 'pos' => $j), array('id' => $task_id));
+                        $task = $app['db.orm.em']->getRepository('Scrilex\Entity\Task')->find($task_ids[$j]);
+                        if($task)
+                        {
+                            $task->setCol($i);
+                            $task->setPos($j);
+                        }
                     }
-                } 
-                $app['db']->commit();
-            } catch(Exception $e) {
-                $app['db']->rollback();
+                }
             }
-            
+            $app['db.orm.em']->flush();
             $viewParams = array(
                 'project' => $project
             );
             
             if($task_id = $app['request']->get('task_id')) {
-                $viewParams['task'] = $app['tasks']->find($task_id);
+                $viewParams['task'] = $app['db.orm.em']->getRepository('Scrilex\Entity\Task')->find($task_id);
             }
             
             return $app['twig']->render('project/_content.html.twig', $viewParams);
@@ -105,46 +105,38 @@ class Project implements ControllerProviderInterface {
         ->bind('project_updateTasksPositions');
         
         $controllers->get('/setTaskColumn/{id}/{col}', function ($id, $col) use ($app) {
-            try {
-                $app['tasks']->update(array('col' => $col), array('id' => $id));
-            } catch(Exception $e) {
-            }
-            
-            $task = $app['tasks']->find($id);
-            $project = $app['projects']->find($task->getProjectId());
+            $task = $app['db.orm.em']->getRepository('Scrilex\Entity\Task')->find($id);
+            $task->setCol($col);
+            $app['db.orm.em']->flush();
             
             return $app['twig']->render('project/_content.html.twig', array(
-                'project' => $project
+                'project' => $task->getProject()
             ));
             
         })
         ->bind('project_setTaskColumn');
         
         $controllers->get('/task/{id}/form', function ($id) use ($app) {
-            $task = $app['tasks']->find($id);
-            $user = $app['users']->find($task->getUserId());
-            $project = $app['projects']->find($task->getProjectId());
-            
-            return $app['twig']->render('project/_content.html.twig', array(
-                'project' => $project,
-                'task' => $task,
-                'user' => $user
+            $task = $app['db.orm.em']->getRepository('Scrilex\Entity\Task')->find($id);
+           return $app['twig']->render('project/_content.html.twig', array(
+               'project' => $task->getProject(), 
+               'task' => $task
             ));
             
         })
         ->bind('project_taskInformations');
         
         $controllers->get('/task/{id}/{property}/{value}', function ($id, $property, $value) use ($app) {
-            $app['tasks']->update(array($property => $value), array('id' => $id));
             
-            $task = $app['tasks']->find($id);
-            $user = $app['users']->find($task->getUserId());
-            $project = $app['projects']->find($task->getProjectId());
+            $method = "set".ucfirst($property);
+            
+            $task = $app['db.orm.em']->getRepository('Scrilex\Entity\Task')->find($id);
+            $task->$method($value);
+            $app['db.orm.em']->flush();
             
             return $app['twig']->render('project/_content.html.twig', array(
-                'project' => $project,
+                'project' => $task->getProject(),
                 'task' => $task,
-                'user' => $user
             ));
             
         })

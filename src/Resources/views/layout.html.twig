@@ -27,7 +27,8 @@
                             $saveBtn.button('loading');
                             $modal.find('.modal-body').load(href, $modal.find('form').serializeArray(), function(data){
                                 if(data == ""){
-                                    //sortableUpdate();
+                                    
+                                    window.location.reload();
                                     $modal.modal('hide');
                                 }else{
                                     $saveBtn.button('reset');

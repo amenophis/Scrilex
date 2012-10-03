@@ -10,20 +10,18 @@ class Task {
     
     /**
      * @Id
-     * @Column(type="integer")
      * @GeneratedValue(strategy="AUTO")
+     * @Column(type="integer")
      */
     protected $id;
     
     /**
-     * @OneToOne(targetEntity="Scrilex\Entity\Project")
-     * @JoinColumn(name="project_id", referencedColumnName="id")
+     * @ManyToOne(targetEntity="Project", inversedBy="tasks")
      */
     protected $project;
     
     /**
-     * @OneToOne(targetEntity="Scrilex\Entity\User")
-     * @JoinColumn(name="user_id", referencedColumnName="id")
+     * @ManyToOne(targetEntity="User", inversedBy="tasks")
      */
     protected $user;
     

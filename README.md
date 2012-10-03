@@ -7,7 +7,10 @@ Scrilex is built on the top of:
  - amenophis/silex-doctrineorm (https://github.com/amenophis/silex-doctrineorm)
 
 ## Installation
-    php composer.phar update
+    git clone https://github.com/amenophis/Scrilex.git Scrilex
+	cd Scrilex 
+	curl -s http://getcomposer.org/installer | php
+	php composer.phar install
 
 ##Configuration
 You need to configure database credentials in src/bootstrap.php file:

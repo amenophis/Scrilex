@@ -10,7 +10,6 @@ function Scrilex(projectId) {
             update: function(event, ui) {
                 if(ui.sender == null){
                     oThis.taskId = ui.item.attr('id').split('task_')[1];
-                    console.log(oThis.taskId);
                     oThis.sortableUpdate();
                 }
             }
@@ -25,7 +24,6 @@ function Scrilex(projectId) {
     
     this.projectLoadUrl = function(url, params)
     {
-        console.log(url);
         $('#project').load(url, params, function(){
             oThis.initSortable();
             initAjax();

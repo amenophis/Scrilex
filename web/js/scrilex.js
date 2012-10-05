@@ -15,6 +15,12 @@ function Scrilex(projectId) {
                 }
             }
         });
+        
+        $('.sortable-list li').on('dblclick', function(){
+            var col = parseInt($(this).parent().attr('id').split('col-')[1]) + 1;
+            if(col == 4) col = -1;
+            oThis.moveTask(oThis.taskId, col);
+        });
     }
     
     this.projectLoadUrl = function(url, params)

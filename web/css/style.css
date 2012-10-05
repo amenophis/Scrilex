@@ -14,7 +14,8 @@ body{
 
 #tasks .sortable-list .well{
     padding: 2px;
-    padding-left: 10px;
+    padding-left: 15px;
+    padding-top: 5px;
     padding-right: 18px;
     margin-bottom: 5px;
     min-height: 25px;

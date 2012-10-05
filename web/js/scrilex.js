@@ -22,6 +22,7 @@ function Scrilex(projectId) {
         console.log(url);
         $('#project').load(url, params, function(){
             oThis.initSortable();
+            initAjax();
         });
     }
     

@@ -45,6 +45,12 @@ class Task {
      */
     protected $content;
     
+    /**
+     * @OneToMany(targetEntity="Task", mappedBy="task")
+     * @OrderBy({"created_at" = "ASC"})
+     */
+    protected $histories;
+    
     public function getId() { return $this->id; }
     public function getProject() { return $this->project; }
     public function getUser() { return $this->user; }

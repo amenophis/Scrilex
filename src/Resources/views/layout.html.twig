@@ -11,7 +11,8 @@
         <script src="{{ app.request.basePath }}/js/scrilex.js"></script>
         <title>Scrilex</title>
         <script>
-            $(document).ready(function(){
+            function initAjax()
+            {
                 $('[data-toggle="ajax-modal"]').on('click', function(e) {
                     e.preventDefault();
                     var $button = $(this);
@@ -44,6 +45,10 @@
                         $button.button('reset');
                     });
                 });
+            }
+            
+            $(document).ready(function(){
+                initAjax();
             });
             
             {{ javascript_routes|raw }}

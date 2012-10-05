@@ -8,7 +8,7 @@ use \Symfony\Component\Security\Core\User\UserInterface;
  * @Entity(repositoryClass="Scrilex\Entity\UserRepository")
  * @Table(name="user")
  */
-class User extends \Amenophis\Entity\User {
+class User extends \Amenophis\UserAdmin\Entity\User {
 
     /**
      * @OneToMany(targetEntity="Task", mappedBy="user")
@@ -16,9 +16,7 @@ class User extends \Amenophis\Entity\User {
      */
     protected $tasks;
     
-    public function getRoles(){ return $this->roles; }
     
-    public function setRoles($roles) { $this->roles = $roles; return $this; }
     
     public function serialize() {
         $array = array(

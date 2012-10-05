@@ -13,7 +13,7 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="task_board">
                         <div class="row-fluid">
-                            <div class="span2">
+                            <div class="span3">
                                 <h3>Backlog<span class="badge">{{ project.getTasksByColumn(0)|length }}</span></h3>
                                 <ul id="col-0" class="sortable-list">
                                     {% for task in project.getTasksByColumn(0) %}
@@ -24,7 +24,7 @@
                                     {% endfor %}
                                 </ul>
                             </div>
-                            <div class="span2">
+                            <div class="span3">
                                 <h3>Todo<span class="badge">{{ project.getTasksByColumn(1)|length }}</span></h3>
                                 <ul id="col-1" class="sortable-list">
                                     {% for task in project.getTasksByColumn(1) %}
@@ -35,7 +35,7 @@
                                     {% endfor %}
                                 </ul>
                             </div>
-                            <div class="span2">
+                            <div class="span3">
                                 <h3>Doing<span class="badge">{{ project.getTasksByColumn(2)|length }}</span></h3>
                                 <ul id="col-2" class="sortable-list">
                                     {% for task in project.getTasksByColumn(2) %}
@@ -46,7 +46,7 @@
                                     {% endfor %}
                                 </ul>
                             </div>
-                            <div class="span2">
+                            {#<div class="span3">
                                 <h3>QA<span class="badge">{{ project.getTasksByColumn(3)|length }}</span></h3>
                                 <ul id="col-3" class="sortable-list">
                                     {% for task in project.getTasksByColumn(3) %}
@@ -56,11 +56,11 @@
                                         </li>
                                     {% endfor %}
                                 </ul>
-                            </div>
-                            <div class="span2">
-                                <h3>Done<span class="badge">{{ project.getTasksByColumn(4)|length }}</span></h3>
-                                <ul id="col-4" class="sortable-list">
-                                    {% for task in project.getTasksByColumn(4) %}
+                            </div>#}
+                            <div class="span3">
+                                <h3>Done<span class="badge">{{ project.getTasksByColumn(3)|length }}</span></h3>
+                                <ul id="col-3" class="sortable-list">
+                                    {% for task in project.getTasksByColumn(3) %}
                                         <li id="task_{{ task.id }}" class="well">
                                             <div class="severity severity_{{ task.severity }}">&nbsp;</div>
                                             {{ task.content }}

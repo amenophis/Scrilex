@@ -1,0 +1,26 @@
+DoctrineServiceProvider:
+  db.options:
+    driver: pdo_mysql
+    dbname: scrilex
+    host: localhost
+    user: root
+    password: root
+    
+DoctrineORMServiceProvider:
+  db.orm.entities:
+    0:
+        type: annotation
+        path:  %__DIR__%/Scrilex/Entity
+        namespace:  Scrilex\Entity
+  db.orm.proxies_dir: %__DIR__%/../cache/doctrine/Proxy
+  db.orm.auto_generate_proxies: true
+  
+MonologServiceProvider:
+  monolog.logfile: %__DIR__%/development.log
+  
+TwigServiceProvider:
+  twig.path: [%__DIR__%/Resources/views]
+  twig.form.templates: [form_div_layout_bootstrap.html.twig]
+  
+TranslationServiceProvider:
+  translator.messages: []

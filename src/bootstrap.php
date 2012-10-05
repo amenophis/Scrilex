@@ -9,46 +9,23 @@ use Silex\Provider\FormServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 
-use Knp\Provider\RepositoryServiceProvider;
-//use Knp\Provider\MigrationServiceProvider;
+$app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../config/dev.yml", array(
+    '__DIR__' => __DIR__
+)));
 
-$app->register(new DoctrineServiceProvider(), array(
-    'db.options' => array(
-        'driver'    => 'pdo_mysql',
-        'host'      => 'localhost',
-        'dbname'    => 'scrilex',
-        'user'      => 'root',
-        'password'  => 'root',
-    ),
-));
+$app->register(new DoctrineServiceProvider(), $app['DoctrineServiceProvider']);
+$app->register(new Amenophis\ServiceProvider\DoctrineORMServiceProvider(), $app['DoctrineORMServiceProvider']);
 
-$app->register(new Amenophis\ServiceProvider\DoctrineORMServiceProvider(), array(
-    'db.orm.entities' => array(
-        array(
-            'type' => 'annotation',
-            'path' => __DIR__.'/Scrilex/Entity',
-            'namespace' => 'Scrilex\Entity'
-        )
-    )
-));
-
-$app->register(new Silex\Provider\MonologServiceProvider(), array(
-    'monolog.logfile' => __DIR__.'/development.log',
-));
+$app->register(new Silex\Provider\MonologServiceProvider(), $app['MonologServiceProvider']);
 
 if(!$app['is_cli']){
     $app->register(new SessionServiceProvider());
     $app->register(new SecurityServiceProvider());
     $app->register(new UrlGeneratorServiceProvider());
-    $app->register(new TwigServiceProvider(), array(
-        'twig.path' => array(__DIR__.'/Resources/views'),
-        'twig.form.templates' => array('form_div_layout_bootstrap.html.twig')
-    ));
+    $app->register(new TwigServiceProvider(), $app['TwigServiceProvider']);
     $app->register(new FormServiceProvider());
     $app->register(new ValidatorServiceProvider());
-    $app->register(new TranslationServiceProvider(), array(
-        'translator.messages' => array(),
-    ));
+    $app->register(new TranslationServiceProvider(), $app['TranslationServiceProvider']);
     
     //$app['migration.register_before_handler'] = true;
     //$app->register(new \Knp\Provider\MigrationServiceProvider(), array(

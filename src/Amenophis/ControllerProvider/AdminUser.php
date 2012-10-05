@@ -1,6 +1,6 @@
 <?php
 
-namespace Scrilex\ControllerProvider;
+namespace Amenophis\ControllerProvider;
 
 use Silex\Application;
 use Silex\ControllerProviderInterface;
@@ -11,19 +11,26 @@ use Symfony\Component\HttpFoundation\Response;
 class AdminUser implements ControllerProviderInterface {
 
     public function connect(Application $app) {
+        
+        $mustBeAdmin = function (Request $request) use ($app) {
+            if(!$app['security']->isGranted('ROLE_ADMIN'))
+                return $app->redirect($app['url_generator']->generate('homepage'));
+        };
+        
         $controllers = $app['controllers_factory'];
-
+        
         $controllers->match('/', function (Request $request) use ($app) {
-            
             $users = $app['db.orm.em']->getRepository('Scrilex\Entity\User')->findAll();
 
-            return $app['twig']->render('admin_user/list.html.twig', array(
+            return $app['twig']->render('Amenophis/AdminUser/list.html.twig', array(
                 'users' => $users
             ));
-        })->bind('admin_user');
+        })
+        ->before($mustBeAdmin)
+        ->bind('admin_user');
         
         $controllers->match('/new', function () use ($app) {
-            $form = $app['form.factory']->create(new \Scrilex\Form\Admin\UserAdd());
+            $form = $app['form.factory']->create(new \Amenophis\Form\Admin\UserAdd());
             
             if ('POST' == $app['request']->getMethod()) {
                 $form->bind($app['request']);
@@ -40,28 +47,31 @@ class AdminUser implements ControllerProviderInterface {
                     return '';
                 }
             }
-            return $app['twig']->render('user/new.html.twig', array(
+            return $app['twig']->render('Amenophis/AdminUser/new.html.twig', array(
                 'form' => $form->createView()
             ));
-        })->bind('admin_user_new');
+        })
+        ->before($mustBeAdmin)
+        ->bind('admin_user_new');
         
         $controllers->match('/{id}/edit', function ($id) use ($app) {
             $user = $app['db.orm.em']->getRepository('Scrilex\Entity\User')->find($id);
             if(!$user) return $app->abort (404, 'Unknown user');
             
-            $form = $app['form.factory']->create(new \Scrilex\Form\Admin\UserEdit(), $user);
+            $formType = new \Amenophis\Form\Admin\UserEdit();
+            $form = $app['form.factory']->create($formType, $user);
             if ('POST' == $app['request']->getMethod()) {
                 $form->bind($app['request']);
                 if ($form->isValid()) {
                     $user = $form->getData();
                     
-                    /*$reqUser = $app['request']->get($formType->getName());
+                    $reqUser = $app['request']->get($formType->getName());
                     if(($plainpassword = $reqUser['password_new']) && $reqUser['password_new'] == $reqUser['password_confirm'])
                     {
                         $encoder = $app['security.encoder_factory']->getEncoder($user);
                         $password = $encoder->encodePassword($plainpassword, $user->getSalt());
                         $user->setPassword($password);
-                    }*/
+                    }
                     
                     $app['db.orm.em']->flush();
                     return "";
@@ -72,7 +82,9 @@ class AdminUser implements ControllerProviderInterface {
                 'form' => $form->createView(),
                 'form_action' => $app['url_generator']->generate('admin_user_edit', array('id' => $id))
             ));
-        })->bind('admin_user_edit');
+        })
+        ->before($mustBeAdmin)
+        ->bind('admin_user_edit');
         
         $controllers->match('/{id}/delete', function ($id) use ($app) {
             $user = $app['db.orm.em']->getRepository('Scrilex\Entity\User')->find($id);
@@ -82,7 +94,9 @@ class AdminUser implements ControllerProviderInterface {
             $app['db.orm.em']->flush();
             
             return $app->redirect($app['url_generator']->generate('admin_user'));
-        })->bind('admin_user_delete');
+        })
+        ->before($mustBeAdmin)
+        ->bind('admin_user_delete');
         
         return $controllers;
     }

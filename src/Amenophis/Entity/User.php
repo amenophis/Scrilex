@@ -1,6 +1,6 @@
 <?php
 
-namespace Scrilex\Entity;
+namespace Amenophis\Entity;
 
 use \Symfony\Component\Security\Core\User\UserInterface;
 
@@ -11,8 +11,13 @@ use \Symfony\Component\Security\Core\User\UserInterface;
  * @Entity(repositoryClass="Scrilex\Entity\UserRepository")
  * @Table(name="user")
  */
-class User implements UserInterface, \Serializable {
+abstract class User implements UserInterface, \Serializable {
 
+    public static $enumRoles = array(
+        'ROLE_ADMIN' => 'ROLE_ADMIN',
+        'ROLE_MANAGER' => 'ROLE_MANAGER',
+        'ROLE_USER' => 'ROLE_USER');
+    
     /**
      * @Id
      * @GeneratedValue(strategy="AUTO")
@@ -53,26 +58,12 @@ class User implements UserInterface, \Serializable {
      */
     protected $roles;
     
-    /**
-     * @OneToMany(targetEntity="Task", mappedBy="user")
-     * @OrderBy({"pos" = "ASC"})
-     */
-    protected $tasks;
+    
     
     public function __construct()
     {
         $this->roles = array();
         $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
-    }    
-    
-    /**
-     * Gets the user roles.
-     *
-     * @return array
-     */
-    public function getRoles()
-    {
-        return $this->roles;
     }
  
     /**
@@ -93,23 +84,23 @@ class User implements UserInterface, \Serializable {
     public function getPassword() { return $this->password; }
     public function getSalt() { return null; }
     
+    
     public function setId($id) { $this->id = $id; return $this; }
     public function setUsername($username) { $this->username = $username; return $this; }
     public function setFirstname($firstname) { $this->firstname = $firstname; return $this; }
     public function setLastname($lastname) { $this->lastname = $lastname; return $this; }
     public function setPassword($password) { $this->password = $password; return $this; }
-    public function setSalt($salt) { return null; }
+    public function setSalt($salt) { return $this; }
+    
     
     public function eraseCredentials() { return true; }
     
-    public function serialize() {
-        return serialize(array(
-            'username'  => $this->username,
-            'password'  => $this->password,
-            'lastname'  => $this->lastname,
-            'firstname'  => $this->firstname,
-            'roles'     => $this->roles
-        ));
+    public function serialize($array = array()) {
+        $array['username'] = $this->username;
+        $array['password'] = $this->password;
+        $array['lastname'] = $this->lastname;
+        $array['firstname'] = $this->firstname;
+        return serialize($array);
     }
     
     public function unserialize($data) {
@@ -118,6 +109,5 @@ class User implements UserInterface, \Serializable {
         $this->password = $datas['password'];
         $this->lastname = $datas['lastname'];
         $this->firstname = $datas['firstname'];
-        $this->roles = $datas['roles'];
     }
 }

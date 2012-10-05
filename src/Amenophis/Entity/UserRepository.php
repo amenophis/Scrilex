@@ -1,6 +1,6 @@
 <?php
 
-namespace Scrilex\Entity;
+namespace Amenophis\Entity;
  
 use Doctrine\ORM\EntityRepository;
 
@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
  
-class UserRepository extends EntityRepository implements UserProviderInterface
+abstract class UserRepository extends EntityRepository implements UserProviderInterface
 {
 
     public function loadUserByUsername($username) {

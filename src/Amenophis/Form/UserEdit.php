@@ -1,11 +1,11 @@
 <?php
-namespace Scrilex\Form\Admin;
+namespace Amenophis\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserEdit extends AbstractType
+abstract class UserEdit extends AbstractType
 {
     public function getName(){
         return 'user';
@@ -18,8 +18,12 @@ class UserEdit extends AbstractType
         ));
         $builder->add('firstname', 'text');
         $builder->add('lastname', 'text');
-        //$builder->add('password_new', 'password', array('property_path' => false));
-        //$builder->add('password_confirm', 'password', array('property_path' => false));
+        $builder->add('password_new', 'password', array('property_path' => false));
+        $builder->add('password_confirm', 'password', array('property_path' => false));
+        $builder->add('roles', 'choice', array(
+            'choices'   => \Scrilex\Entity\User::$enumRoles,
+            'multiple'  => true
+        ));
         //$builder->add('password2', 'password');
         //$builder->add('roles', 'text');
         
@@ -29,7 +33,7 @@ class UserEdit extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Scrilex\Entity\User'
+            'data_class' => 'Amenophis\Entity\User'
         ));
     }
 }

@@ -2,7 +2,7 @@
     <h2>{{ project.name }}</h2>
     <a data-toggle="ajax-modal" class="btn" data-modal-title="Add Task" href="{{ path('project_task_new', {'project_id': project.id }) }}">Add Task</a>
 
-    <div class="row">
+    <div class="row-fluid">
         <div class="span10">
             <div id="tasks">
                 <ul class="nav nav-tabs" id="tabs">
@@ -12,7 +12,7 @@
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="task_board">
-                        <div class="row">
+                        <div class="row-fluid">
                             <div class="span2">
                                 <h3>Backlog<span class="badge">{{ project.getTasksByColumn(0)|length }}</span></h3>
                                 <ul id="col-0" class="sortable-list">
@@ -94,7 +94,7 @@
                 </script>
             </div>
         </div>
-        <div class="span2 ">
+        <div class="span2">
             <div id="informations">
                 {% if task is defined %}
                 <div class="control-group">

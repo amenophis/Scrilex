@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
  
-class UserRepository extends EntityRepository implements UserProviderInterface
+class UserRepository extends \Amenophis\Entity\UserRepository
 {
 
     public function loadUserByUsername($username) {

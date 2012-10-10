@@ -13,7 +13,13 @@ $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../config/dev.yml
     '__DIR__' => __DIR__
 )));
 
+$app->register(new JMS\SerializerServiceProvider\SerializerServiceProvider(), array(
+    'serializer.src_directory' => __DIR__."/../vendor/jms/serializer-bundle/src",
+    'serializer.cache.directory' => __DIR__."/../cache/serializer"
+));
+
 $app->register(new DoctrineServiceProvider(), $app['DoctrineServiceProvider']);
+
 $app->register(new Amenophis\ServiceProvider\DoctrineORMServiceProvider(), $app['DoctrineORMServiceProvider']);
 
 $app->register(new Silex\Provider\MonologServiceProvider(), $app['MonologServiceProvider']);

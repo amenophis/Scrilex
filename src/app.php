@@ -16,6 +16,8 @@ $app->before(function () use ($app) { });
 
 if(!$app['is_cli'])
 {
+    $app->mount('/api/projects', new \Scrilex\ControllerProvider\API\Project('Scrilex\\Entity\\Project'));
+    
     $app->mount('/', new \Scrilex\ControllerProvider\Main());
     $app->mount('/project', new \Scrilex\ControllerProvider\Project());
     $app->mount('/user', new \Scrilex\ControllerProvider\User());

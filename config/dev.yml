@@ -27,3 +27,7 @@ TwigServiceProvider:
   
 TranslationServiceProvider:
   translator.messages: []
+  
+SerializerServiceProvider:
+  - serializer.src_directory: %__DIR__%/../vendor/jms/serializer-bundle/src
+  - serializer.cache.directory': %__DIR__%/../cache/serializer

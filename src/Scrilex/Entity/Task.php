@@ -2,52 +2,55 @@
 
 namespace Scrilex\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use JMS\SerializerBundle\Annotation as JMS;
+
 /**
- * @Entity(repositoryClass="Scrilex\Entity\TaskRepository")
- * @Table(name="task")
+ * @ORM\Entity(repositoryClass="Scrilex\Entity\TaskRepository")
+ * @ORM\Table(name="task")
  */
 class Task {
     
     /**
-     * @Id
-     * @GeneratedValue(strategy="AUTO")
-     * @Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      */
     protected $id;
     
     /**
-     * @ManyToOne(targetEntity="Project", inversedBy="tasks")
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="tasks")
      */
     protected $project;
     
     /**
-     * @ManyToOne(targetEntity="User", inversedBy="tasks")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="tasks")
      */
     protected $user;
     
     /**
-     * @Column(type="integer")
+     * @ORM\Column(type="integer")
      */
     protected $pos;
     
     /**
-     * @Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
     protected $col;
     
     /**
-     * @Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
     protected $severity;
     
     /**
-     * @Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      */
     protected $content;
     
     /**
-     * @OneToMany(targetEntity="Task", mappedBy="task")
-     * @OrderBy({"created_at" = "ASC"})
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="task")
+     * @ORM\OrderBy({"created_at" = "ASC"})
      */
     protected $histories;
     

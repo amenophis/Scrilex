@@ -2,27 +2,30 @@
 
 namespace Scrilex\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use JMS\SerializerBundle\Annotation as JMS;
+
 /**
- * @Entity(repositoryClass="Scrilex\Entity\ProjectRepository")
- * @Table(name="project")
+ * @ORM\Entity(repositoryClass="Scrilex\Entity\ProjectRepository")
+ * @ORM\Table(name="project")
  */
 class Project
 {
     /**
-     * @Id
-     * @GeneratedValue(strategy="AUTO")
-     * @Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      */
     protected $id;
     
     /**
-     * @Column(type="string", length=32, unique=true, nullable=false)
+     * @ORM\Column(type="string", length=32, unique=true, nullable=false)
      */
     protected $name;
 
     /**
-     * @OneToMany(targetEntity="Task", mappedBy="project")
-     * @OrderBy({"pos" = "ASC"})
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="project")
+     * @ORM\OrderBy({"pos" = "ASC"})
      */
     protected $tasks;
     

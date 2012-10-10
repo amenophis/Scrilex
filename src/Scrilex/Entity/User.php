@@ -4,15 +4,18 @@ namespace Scrilex\Entity;
 
 use \Symfony\Component\Security\Core\User\UserInterface;
 
+use Doctrine\ORM\Mapping as ORM;
+use JMS\SerializerBundle\Annotation as JMS;
+
 /**
- * @Entity(repositoryClass="Scrilex\Entity\UserRepository")
- * @Table(name="user")
+ * @ORM\Entity(repositoryClass="Scrilex\Entity\UserRepository")
+ * @ORM\Table(name="user")
  */
 class User extends \Amenophis\UserAdmin\Entity\User {
 
     /**
-     * @OneToMany(targetEntity="Task", mappedBy="user")
-     * @OrderBy({"pos" = "ASC"})
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="user")
+     * @ORM\OrderBy({"pos" = "ASC"})
      */
     protected $tasks;
     

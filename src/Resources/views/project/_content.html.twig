@@ -1,3 +1,18 @@
+{% macro showColumn(name, num, project) %}
+    <div class="span3">
+        <h3>{{ name }}<span class="badge">{{ project.getTasksByColumn(num)|length }}</span></h3>
+        <ul id="col-{{ num }}" class="sortable-list">
+            {% for task in project.getTasksByColumn(num) %}
+                <li id="task_{{ task.id }}" class="well">
+                    <div class="severity severity_{{ task.severity }}">&nbsp;</div>
+                    {{ task.content }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endmacro %}
+
+
 <div id="project">
     <h2>{{ project.name }}</h2>
     <a data-toggle="ajax-modal" class="btn" data-modal-title="Add Task" href="{{ path('project_task_new', {'project_id': project.id }) }}">Add Task</a>
@@ -13,62 +28,10 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="task_board">
                         <div class="row-fluid">
-                            <div class="span3">
-                                <h3>Backlog<span class="badge">{{ project.getTasksByColumn(0)|length }}</span></h3>
-                                <ul id="col-0" class="sortable-list">
-                                    {% for task in project.getTasksByColumn(0) %}
-                                        <li id="task_{{ task.id }}" class="well">
-                                            <div class="severity severity_{{ task.severity }}">&nbsp;</div>
-                                            {{ task.content }}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            <div class="span3">
-                                <h3>Todo<span class="badge">{{ project.getTasksByColumn(1)|length }}</span></h3>
-                                <ul id="col-1" class="sortable-list">
-                                    {% for task in project.getTasksByColumn(1) %}
-                                        <li id="task_{{ task.id }}" class="well">
-                                            <div class="severity severity_{{ task.severity }}">&nbsp;</div>
-                                            {{ task.content }}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            <div class="span3">
-                                <h3>Doing<span class="badge">{{ project.getTasksByColumn(2)|length }}</span></h3>
-                                <ul id="col-2" class="sortable-list">
-                                    {% for task in project.getTasksByColumn(2) %}
-                                        <li id="task_{{ task.id }}" class="well">
-                                            <div class="severity severity_{{ task.severity }}">&nbsp;</div>
-                                            {{ task.content }}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            {#<div class="span3">
-                                <h3>QA<span class="badge">{{ project.getTasksByColumn(3)|length }}</span></h3>
-                                <ul id="col-3" class="sortable-list">
-                                    {% for task in project.getTasksByColumn(3) %}
-                                        <li id="task_{{ task.id }}" class="well">
-                                            <div class="severity severity_{{ task.severity }}">&nbsp;</div>
-                                            {{ task.content }}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>#}
-                            <div class="span3">
-                                <h3>Done<span class="badge">{{ project.getTasksByColumn(3)|length }}</span></h3>
-                                <ul id="col-3" class="sortable-list">
-                                    {% for task in project.getTasksByColumn(3) %}
-                                        <li id="task_{{ task.id }}" class="well">
-                                            <div class="severity severity_{{ task.severity }}">&nbsp;</div>
-                                            {{ task.content }}
-                                            <i class="close icon-ok"></i>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
+                            {{ _self.showColumn("Backlog", 0, project) }}
+                            {{ _self.showColumn("Todo", 1, project) }}
+                            {{ _self.showColumn("Doing", 2, project) }}
+                            {{ _self.showColumn("Done", 3, project) }}
                         </div>
                     </div>
                     <div class="tab-pane" id="task_archive">

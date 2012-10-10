@@ -2,31 +2,34 @@
 
 namespace Scrilex\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use JMS\SerializerBundle\Annotation as JMS;
+
 /**
- * @Entity(repositoryClass="Scrilex\Entity\TaskHistoryRepository")
- * @Table(name="task_history")
+ * @ORM\Entity(repositoryClass="Scrilex\Entity\TaskHistoryRepository")
+ * @ORM\Table(name="task_history")
  */
 class TaskHistory {
     
     /**
-     * @Id
-     * @GeneratedValue(strategy="AUTO")
-     * @Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      */
     protected $id;
     
     /**
-     * @ManyToOne(targetEntity="Task", inversedBy="histories")
+     * @ORM\ManyToOne(targetEntity="Task", inversedBy="histories")
      */
     protected $task;
     
     /**
-     * @ManyToOne(targetEntity="User", inversedBy="histories")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="histories")
      */
     protected $user;
     
     /**
-     * @Column(type="datetime")
+     * @ORM\Column(type="datetime")
      */
     protected $created_at;
     

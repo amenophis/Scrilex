@@ -1,0 +1,26 @@
+{
+    "minimum-stability": "dev",
+    "require": {
+        "silex/silex": "dev-master",
+        "twig/twig": ">=1.8,<2.0-dev",
+        "symfony/twig-bridge": "2.1.*",
+        "symfony/validator": "2.1.*",
+        "symfony/form": "2.1.*",
+        "symfony/translation": "2.1.*",
+        "symfony/finder": "2.1.*",
+        "symfony/security": "2.1.*",
+        "symfony/config": "2.1.*",
+        "monolog/monolog": ">=1.0.0",
+        "amenophis/silex-doctrineorm": "dev-master",
+        "igorw/config-service-provider" : "dev-master",
+        "symfony/yaml": "2.1.*",
+        "amenophis/silex-useradmin": "dev-master",
+        "symfony/serializer": "2.1.*",
+        "jms/serializer-service-provider": "dev-master"
+    },
+    "autoload": {
+        "psr-0":{
+            "Scrilex": "src/"
+        }
+    }
+}

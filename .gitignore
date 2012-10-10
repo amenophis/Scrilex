@@ -13,5 +13,4 @@ app/config/parameters.ini
 
 *.log
 composer.phar
-composer.json
 composer.lock

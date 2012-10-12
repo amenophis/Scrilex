@@ -9,22 +9,25 @@ DoctrineServiceProvider:
 DoctrineORMServiceProvider:
   db.orm.entities:
     0:
-        type: annotation
-        path:  %__DIR__%/Scrilex/Entity
-        namespace:  Scrilex\Entity
-  db.orm.proxies_dir: %__DIR__%/../cache/doctrine/Proxy
+      type: annotation
+      path:  %root%/src/Scrilex/Entity
+      namespace:  Scrilex\Entity
+  db.orm.proxies_dir: %root%/cache/doctrine/Proxy
   db.orm.auto_generate_proxies: true
   
 MonologServiceProvider:
-  monolog.logfile: %__DIR__%/development.log
+  monolog.logfile: %root%/development.log
   
 TwigServiceProvider:
-  twig.path: [%__DIR__%/Resources/views]
-  twig.form.templates: [form_div_layout_bootstrap.html.twig]
+  twig.path:
+    - %root%/src/Resources/views
+    - %root%/vendor/amenophis/silex-useradmin/src/Resources/views
+  twig.form.templates:
+    - form_div_layout_bootstrap.html.twig
   
 TranslationServiceProvider:
   translator.messages: []
- 
+  
 SerializerServiceProvider:
-  serializer.src_directory: %__DIR__%/../vendor/jms/serializer-bundle/src
-  serializer.cache.directory': %__DIR__%/../cache/serializer
+  serializer.src_directory: %root%/vendor/jms/serializer-bundle
+  serializer.cache.directory': %root%/cache/serializer

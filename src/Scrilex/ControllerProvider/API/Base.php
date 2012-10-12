@@ -36,14 +36,12 @@ abstract class Base implements ControllerProviderInterface {
     
     public function all()
     {
-        $items = $this->app['db.orm.em']->getRepository($this->entityClass)->find(5);
+        $items = $this->app['db.orm.em']->getRepository($this->entityClass)->findAll();
         
+        $response = $this->app['serializer']->serialize($items, 'json');
         
-        //$this->app['serializer']->serialize($items, 'json');
-        //return "";
-        
-        return new Response($this->app['serializer']->serialize($items, 'json'), 200, array(
-            "Content-Type" => $this->app['request']->getMimeType($format)
+        return new Response($response, 200, array(
+            "Content-Type" => $this->app['request']->getMimeType('json')
         ));
     }
     

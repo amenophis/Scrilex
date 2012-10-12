@@ -15,21 +15,29 @@ class TaskHistory {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * 
+     * @JMS\Type("integer")
      */
     protected $id;
     
     /**
      * @ORM\ManyToOne(targetEntity="Task", inversedBy="histories")
+     * 
+     * @JMS\Type("ArrayCollection<Scrilex\Entity\Task>")
      */
     protected $task;
     
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="histories")
+     * 
+     * @JMS\Type("Scrilex\Entity\User")
      */
     protected $user;
     
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @JMS\Type("DateTime")
      */
     protected $created_at;
     

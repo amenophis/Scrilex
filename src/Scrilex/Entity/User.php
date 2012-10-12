@@ -16,10 +16,10 @@ class User extends \Amenophis\UserAdmin\Entity\User {
     /**
      * @ORM\OneToMany(targetEntity="Task", mappedBy="user")
      * @ORM\OrderBy({"pos" = "ASC"})
+     * 
+     * @JMS\Type("ArrayCollection<Scrilex\Entity\Task>")
      */
     protected $tasks;
-    
-    
     
     public function serialize() {
         $array = array(

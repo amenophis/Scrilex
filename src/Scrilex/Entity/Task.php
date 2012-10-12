@@ -15,42 +15,57 @@ class Task {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * 
+     * @JMS\Type("integer")
      */
     protected $id;
     
     /**
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="tasks")
+     * 
+     * @JMS\Type("Project")
      */
     protected $project;
     
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="tasks")
+     * 
+     * @JMS\Type("Scrilex\Entity\User")
      */
     protected $user;
     
     /**
      * @ORM\Column(type="integer")
+     * 
+     * @JMS\Type("integer")
      */
     protected $pos;
     
     /**
      * @ORM\Column(type="integer", nullable=false)
+     * 
+     * @JMS\Type("integer")
      */
     protected $col;
     
     /**
      * @ORM\Column(type="integer", nullable=false)
+     * 
+     * @JMS\Type("integer")
      */
     protected $severity;
     
     /**
      * @ORM\Column(type="string", nullable=false)
+     * 
+     * @JMS\Type("string")
      */
     protected $content;
     
     /**
      * @ORM\OneToMany(targetEntity="Task", mappedBy="task")
-     * @ORM\OrderBy({"created_at" = "ASC"})
+     * 
+     * @JMS\Type("ArrayCollection<Scrilex\Entity\TaskHistory>")
      */
     protected $histories;
     

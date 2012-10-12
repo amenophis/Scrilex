@@ -15,17 +15,23 @@ class Project
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * 
+     * @JMS\Type("integer")
      */
     protected $id;
     
     /**
      * @ORM\Column(type="string", length=32, unique=true, nullable=false)
+     * 
+     * @JMS\Type("string")
      */
     protected $name;
 
     /**
      * @ORM\OneToMany(targetEntity="Task", mappedBy="project")
      * @ORM\OrderBy({"pos" = "ASC"})
+     * 
+     * @JMS\Type("ArrayCollection<Scrilex\Entity\Task>")
      */
     protected $tasks;
     

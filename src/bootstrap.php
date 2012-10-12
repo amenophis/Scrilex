@@ -10,13 +10,10 @@ use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 
 $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../config/dev.yml", array(
-    '__DIR__' => __DIR__
+    'root' => __DIR__.'/..'
 )));
 
-$app->register(new JMS\SerializerServiceProvider\SerializerServiceProvider(), array(
-    'serializer.src_directory' => __DIR__."/../vendor/jms/serializer-bundle/src",
-    'serializer.cache.directory' => __DIR__."/../cache/serializer"
-));
+$app->register(new JMS\SerializerServiceProvider\SerializerServiceProvider(), $app['SerializerServiceProvider']);
 
 $app->register(new DoctrineServiceProvider(), $app['DoctrineServiceProvider']);
 

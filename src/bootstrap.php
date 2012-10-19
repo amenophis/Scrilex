@@ -13,7 +13,6 @@ $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../config/dev.yml
     'root' => __DIR__.'/..'
 )));
 
-$app->register(new JMS\SerializerServiceProvider\SerializerServiceProvider(), $app['SerializerServiceProvider']);
 
 $app->register(new DoctrineServiceProvider(), $app['DoctrineServiceProvider']);
 

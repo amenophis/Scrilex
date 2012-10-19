@@ -9,15 +9,4 @@ class Project extends \Scrilex\ControllerProvider\API\Base {
     {
         parent::__construct($entityClass, $routePrefix);
     }
-    
-    protected function createFromJSON($json)
-    {
-        $item = new \Scrilex\Entity\Project();
-        return $item->setName($json['name']);
-    }
-    
-    protected function updateFromJSON($item, $json)
-    {
-        return $item->setName($json['name']);
-    }
 }

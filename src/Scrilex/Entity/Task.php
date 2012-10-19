@@ -3,7 +3,6 @@
 namespace Scrilex\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\SerializerBundle\Annotation as JMS;
 
 /**
  * @ORM\Entity(repositoryClass="Scrilex\Entity\TaskRepository")
@@ -15,57 +14,41 @@ class Task {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
-     * 
-     * @JMS\Type("integer")
      */
     protected $id;
     
     /**
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="tasks")
-     * 
-     * @JMS\Type("Project")
      */
     protected $project;
     
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="tasks")
-     * 
-     * @JMS\Type("Scrilex\Entity\User")
      */
     protected $user;
     
     /**
      * @ORM\Column(type="integer")
-     * 
-     * @JMS\Type("integer")
      */
     protected $pos;
     
     /**
      * @ORM\Column(type="integer", nullable=false)
-     * 
-     * @JMS\Type("integer")
      */
     protected $col;
     
     /**
      * @ORM\Column(type="integer", nullable=false)
-     * 
-     * @JMS\Type("integer")
      */
     protected $severity;
     
     /**
      * @ORM\Column(type="string", nullable=false)
-     * 
-     * @JMS\Type("string")
      */
     protected $content;
     
     /**
      * @ORM\OneToMany(targetEntity="Task", mappedBy="task")
-     * 
-     * @JMS\Type("ArrayCollection<Scrilex\Entity\TaskHistory>")
      */
     protected $histories;
     
@@ -84,4 +67,26 @@ class Task {
     public function setCol($col) { $this->col = $col; return $this; }
     public function setSeverity($severity) { $this->severity = $severity; return $this; }
     public function setContent($content) { $this->content = $content; return $this; }
+    
+    public function toArray()
+    {
+        return array(
+            'id' => $this->id,
+            'project_id' => $this->getProject()->getId(),
+            'user_id' => $this->getUser()->getId(),
+            'pos' => $this->pos,
+            'col' => $this->col,
+            'severity' => $this->severity,
+            'content' => $this->content,
+        );
+    }
+    
+    public function fromArray($array)
+    {
+        $this->setUser($app['db.orm.em']->getRepository('Scrilex\Entity\User')->find($array['user_id']))
+            ->setPos($array['pos'])
+            ->setCol($array['col'])
+            ->setSeverity($array['severity'])
+            ->setContent($array['content']);
+    }
 }

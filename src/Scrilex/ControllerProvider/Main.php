@@ -34,6 +34,10 @@ class Main implements ControllerProviderInterface {
             ));
         });
         
+        $controllers->get('/backbone', function(Request $request) use ($app) {
+            return $app['twig']->render('backbone.html.twig');
+        });
+        
         return $controllers;
     }
 }

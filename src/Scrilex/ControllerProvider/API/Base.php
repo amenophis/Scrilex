@@ -34,22 +34,31 @@ abstract class Base implements ControllerProviderInterface {
         return $controllers;
     }
     
+    protected function response($response)
+    {
+        return new Response(json_encode($response), 200, array(
+            "Content-Type" => $this->app['request']->getMimeType('json')
+        ));
+    }
+    
     public function all()
     {
         $items = $this->app['db.orm.em']->getRepository($this->entityClass)->findAll();
         
-        $response = $this->app['serializer']->serialize($items, 'json');
+        $arrays = array();
+        foreach($items as $item)
+        {
+            $arrays[] = $item->toArray();
+        }
         
-        return new Response($response, 200, array(
-            "Content-Type" => $this->app['request']->getMimeType('json')
-        ));
+        return $this->response($arrays);
     }
     
     public function one($id)
     {
         $item = $this->app['db.orm.em']->getRepository($this->entityClass)->find($id);
         if(!$item) $this->app->abort ('404', 'Item not found');
-        return $this->app->json($this->app['serializer']->serialize($item, 'json'));
+        return $this->response($item->toArray());
     }
     
     public function create()
@@ -78,9 +87,5 @@ abstract class Base implements ControllerProviderInterface {
         if(!$item) $this->app->abort ('404', 'Item not found');
         
         $this->app['db.orm.em']->remove($item);
-    }
-    
-    protected abstract function createFromJSON($json);
-    protected abstract function updateFromJSON($item, $json);
-    
+    }    
 }

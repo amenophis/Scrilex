@@ -14,9 +14,7 @@
         "amenophis/silex-doctrineorm": "dev-master",
         "igorw/config-service-provider" : "dev-master",
         "symfony/yaml": "2.1.*",
-        "amenophis/silex-useradmin": "dev-master",
-        "symfony/serializer": "2.1.*",
-        "jms/serializer-service-provider": "dev-develop"
+        "amenophis/silex-useradmin": "dev-master"
     },
     "autoload": {
         "psr-0":{

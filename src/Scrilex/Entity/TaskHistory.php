@@ -3,7 +3,6 @@
 namespace Scrilex\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\SerializerBundle\Annotation as JMS;
 
 /**
  * @ORM\Entity(repositoryClass="Scrilex\Entity\TaskHistoryRepository")
@@ -15,29 +14,21 @@ class TaskHistory {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
-     * 
-     * @JMS\Type("integer")
      */
     protected $id;
     
     /**
      * @ORM\ManyToOne(targetEntity="Task", inversedBy="histories")
-     * 
-     * @JMS\Type("ArrayCollection<Scrilex\Entity\Task>")
      */
     protected $task;
     
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="histories")
-     * 
-     * @JMS\Type("Scrilex\Entity\User")
      */
     protected $user;
     
     /**
      * @ORM\Column(type="datetime")
-     * 
-     * @JMS\Type("DateTime")
      */
     protected $created_at;
     
@@ -48,10 +39,24 @@ class TaskHistory {
     public function setId($id) { $this->id = $id; return $this; }
     public function setTask($task) { $this->task = $task; return $this; }
     
-    /** @PrePersist */
+    /** @ORM\PrePersist */
     public function doStuffOnPrePersist()
     {
         $this->created_at = date('Y-m-d H:m:s');
     }
     
+    public function toArray()
+    {
+        return array(
+            'id' => $this->id,
+            'created_at' => $this->created_at,
+            'task_id' => $this->getTask()->getId()
+        );
+    }
+    
+    public function fromArray($array)
+    {
+        $this->setCreatedAt($app['db.orm.em']->getRepository('Scrilex\Entity\User')->find($array['created_at']))
+            ->setTask($app['db.orm.em']->getRepository('Scrilex\Entity\User')->find($array['task_id']));
+    }
 }

@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+global $app;
+
 $app = new Silex\Application();
 $app['debug'] = true;
 $app['is_cli'] = function()

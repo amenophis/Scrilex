@@ -10,8 +10,8 @@ DoctrineORMServiceProvider:
   db.orm.entities:
     0:
       type: annotation
-      path: %root%/src/Scrilex/Entity
-      namespace: Scrilex\Entity
+      path:  %root%/src/Scrilex/Entity
+      namespace:  Scrilex\Entity
   db.orm.proxies_dir: %root%/cache/doctrine/Proxy
   db.orm.auto_generate_proxies: true
   
@@ -31,48 +31,3 @@ TranslationServiceProvider:
 SerializerServiceProvider:
   serializer.src_directory: %root%/vendor/jms/serializer-bundle
   serializer.cache.directory: %root%/cache/serializer
-
-Amenophis:
-  useradmin:
-    user:
-      list:
-        columns:
-          username:
-            label: Username
-          firstname: 
-            label: Firstname
-          lastname:
-            label: Lastname
-          isManager: 
-            label: Manager
-            type: bool
-            attrs:
-              width: 70px
-          isAdmin:
-            label: Admin
-            type: bool
-            attrs:
-              width: 70px
-        actions:
-          edit:
-            label: ""
-            type: ajax
-            options:
-              route: admin_user_edit
-              modalTitle: Edit {{ user.firstname }} {{ user.lastname }} ({{ user.username }})
-            attrs:
-              width: 16px
-          delete:
-            label: ""
-            type: confirm
-            options:
-              route: admin_user_delete
-            attrs:
-              width: 16px
-            
-          
-      class: Scrilex\Entity\User
-      form:
-        add: Scrilex\Form\UserAdd
-        edit: Scrilex\Form\UserEdit
-  default_password: foo

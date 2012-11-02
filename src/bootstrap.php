@@ -13,8 +13,11 @@ $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../config/dev.yml
     'root' => __DIR__.'/..'
 )));
 
+
 $app->register(new DoctrineServiceProvider(), $app['DoctrineServiceProvider']);
+
 $app->register(new Amenophis\ServiceProvider\DoctrineORMServiceProvider(), $app['DoctrineORMServiceProvider']);
+
 $app->register(new Silex\Provider\MonologServiceProvider(), $app['MonologServiceProvider']);
 
 if(!$app['is_cli']){
@@ -22,20 +25,15 @@ if(!$app['is_cli']){
     $app->register(new SecurityServiceProvider());
     $app->register(new UrlGeneratorServiceProvider());
     $app->register(new TwigServiceProvider(), $app['TwigServiceProvider']);
-    
-    $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
-        $twig->addExtension(new Scrilex\EvalExtension());
-
-        return $twig;
-    }));
-    
-    //$app['twig']->addExtension(new Scrilex\Eval_Extension());
-    
     $app->register(new FormServiceProvider());
     $app->register(new ValidatorServiceProvider());
     $app->register(new TranslationServiceProvider(), $app['TranslationServiceProvider']);
     
-    $app->register(new Silex\Provider\SecurityServiceProvider());
+    //$app['migration.register_before_handler'] = true;
+    //$app->register(new \Knp\Provider\MigrationServiceProvider(), array(
+    //    'migration.path' => __DIR__.'/Resources/migrations'
+    //));
+    
     $app['security.firewalls'] = array(
         'login' => array(
             'pattern' => '^/login$',
@@ -52,5 +50,11 @@ if(!$app['is_cli']){
 
     $app['security.access_rules'] = array(
         array('^.*$', 'ROLE_USER')
-    );
+    );        
+
+    //$app['security.role_hierarchy'] = array(
+    //    'ROLE_ADMIN' => array('ROLE_MANAGER'),
+    //    'ROLE_MANAGER' => array('ROLE_USER'),
+    //    'ROLE_USER' => array()
+    //);
 }

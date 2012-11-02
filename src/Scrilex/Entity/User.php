@@ -48,4 +48,14 @@ class User extends \Amenophis\UserAdmin\Entity\User {
             ->setLastname($array['lastname'])
             ->setRoles($array['roles']);
     }
+    
+    public function isManager()
+    {
+        return in_array('ROLE_MANAGER', $this->roles);
+    }
+    
+    public function isAdmin()
+    {
+        return in_array('ROLE_ADMIN', $this->roles);
+    }
 }

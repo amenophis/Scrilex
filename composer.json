@@ -12,9 +12,10 @@
         "symfony/config": "2.1.*",
         "monolog/monolog": ">=1.0.0",
         "amenophis/silex-doctrineorm": "dev-master",
+        "amenophis/silex-useradmin": "dev-master",
         "igorw/config-service-provider" : "dev-master",
         "symfony/yaml": "2.1.*",
-        "amenophis/silex-useradmin": "dev-master"
+        "twig/extensions": "*"
     },
     "autoload": {
         "psr-0":{
